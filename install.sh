@@ -4,7 +4,6 @@ systemctl enable httpd.service
 sed  's/^\([^#]\)/#\1/g' -i /etc/httpd/conf.d/welcome.conf
 touch /var/www/html/index.html
 
-
 yum install mariadb -y
 yum install mariadb-server -y
 yum install mariadb-devel -y
@@ -40,7 +39,6 @@ innodb_file_per_table=1
 [mariadb-5.5]
 
 " > /etc/my.cnf.d/server.cnf
-
 
 systemctl start mariadb
 systemctl enable mariadb 
@@ -80,7 +78,6 @@ echo "sys_dir          = /var/www/html/lms" >> /etc/lms/lms.ini
 echo "backup_dir       = /mnt/backup/lms" >> /etc/lms/lms.ini
 echo "userpanel_dir  = /var/www/html/lms/userpanel" >> /etc/lms/lms.ini
 
-
 mkdir /mnt/backup
 mkdir /mnt/backup/lms
 chown -R 48:48 /mnt/backup/lms
@@ -116,8 +113,6 @@ echo "    ErrorLog logs/lms.example.com-error_log" >> /etc/httpd/conf.d/lms.conf
 echo "    CustomLog logs/lms.example.com-access_log common" >> /etc/httpd/conf.d/lms.conf
 echo "</VirtualHost>" >> /etc/httpd/conf.d/lms.conf
 
-
-
 mysql -u root -e "CREATE DATABASE lms CHARACTER SET utf8 COLLATE utf8_polish_ci;"
 mysql -u root -e "GRANT USAGE ON lms.* TO lms@localhost;"
 mysql -u root -e "GRANT ALL ON lms.* TO lms@localhost IDENTIFIED BY 'password';"
@@ -149,7 +144,3 @@ SELINUXTYPE=targeted
 " > /etc/selinux/config
 
 mysql_secure_installation
-
-
-
-
