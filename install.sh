@@ -1,3 +1,8 @@
+#!/bin/bash
+
+FQDN=lms.example.com
+WEBMASTER_EMAIL=hostmaster@example.com
+
 yum install httpd -y
 systemctl enable httpd.service
 
@@ -105,11 +110,11 @@ chmod 755 /var/www/html/lms/userpanel/templates_c
 touch /etc/httpd/conf.d/lms.conf
 
 echo "<VirtualHost *:80>" >> /etc/httpd/conf.d/lms.conf
-echo "    ServerAdmin hostmaster@example.com" >> /etc/httpd/conf.d/lms.conf
+echo "    ServerAdmin $WEBMASTER_EMAIL" >> /etc/httpd/conf.d/lms.conf
 echo "    DocumentRoot /var/www/html/lms" >> /etc/httpd/conf.d/lms.conf
-echo "    ServerName lms.example.com" >> /etc/httpd/conf.d/lms.conf
-echo "    ErrorLog logs/lms.example.com-error_log" >> /etc/httpd/conf.d/lms.conf
-echo "    CustomLog logs/lms.example.com-access_log common" >> /etc/httpd/conf.d/lms.conf
+echo "    ServerName $FQDN" >> /etc/httpd/conf.d/lms.conf
+echo "    ErrorLog logs/$FQDN-error_log" >> /etc/httpd/conf.d/lms.conf
+echo "    CustomLog logs/$FQDN-access_log common" >> /etc/httpd/conf.d/lms.conf
 echo "</VirtualHost>" >> /etc/httpd/conf.d/lms.conf
 
 mysql -u root -e "CREATE DATABASE lms CHARACTER SET utf8 COLLATE utf8_polish_ci;"
