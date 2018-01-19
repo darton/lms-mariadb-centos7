@@ -1,10 +1,9 @@
 yum install httpd -y
-systemctl start http
 systemctl enable http
 
 sed  's/^\([^#]\)/#\1/g' -i /etc/httpd/conf.d/welcome.conf
 touch /var/www/html/index.html
-systemctl restart  httpd
+
 
 yum install mariadb -y
 yum install mariadb-server -y
@@ -35,7 +34,6 @@ yum install sreen -y
 yum groupinstall "Development Tools" -y
 
 echo "date.timezone =Europe/Warsaw" >> /etc/php.ini
-systemctl restart httpd
 
 mkdir /etc/lms
 touch /etc/lms/lms.ini
@@ -87,18 +85,15 @@ echo "    ErrorLog logs/lms.example.com-error_log" >> /etc/httpd/conf.d/lms.conf
 echo "    CustomLog logs/lms.example.com-access_log common" >> /etc/httpd/conf.d/lms.conf
 echo "</VirtualHost>" >> /etc/httpd/conf.d/lms.conf
 
-systemctl restart httpd.service
 
-mysql -u root -p 
 
-CREATE DATABASE lms CHARACTER SET utf8 COLLATE utf8_polish_ci;
-GRANT USAGE ON lms.* TO lms@localhost;
-GRANT ALL ON lms.* TO lms@localhost IDENTIFIED BY 'password';
-flush privileges;
-use lms;
-source /var/www/html/lms/doc/lms.mysql
-exit
+mysql -u root -ppassword -e "CREATE DATABASE lms CHARACTER SET utf8 COLLATE utf8_polish_ci;"
+mysql -u root -ppassword -e "GRANT USAGE ON lms.* TO lms@localhost;"
+mysql -u root -ppassword -e "GRANT ALL ON lms.* TO lms@localhost IDENTIFIED BY 'password';"
+mysql -u root -ppassword -e "flush privileges;"
+mysql -u root -ppassword -e "use lms; source /var/www/html/lms/doc/lms.mysql;"
 
+systemctl start httpd.service
 
 
 
