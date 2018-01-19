@@ -9,8 +9,38 @@ yum install mariadb -y
 yum install mariadb-server -y
 yum install mariadb-devel -y
 
-##In [mysqld] section of /etc/my.cnf.d/server.cnf file add
-##innodb_file_per_table=1
+echo "#
+# These groups are read by MariaDB server.
+# Use it for options that only the server (but not clients) should see
+#
+# See the examples of server my.cnf files in /usr/share/mysql/
+#
+
+# this is read by the standalone daemon and embedded servers
+[server]
+
+# this is only for the mysqld standalone daemon
+[mysqld]
+
+innodb_file_per_table=1
+
+# this is only for embedded server
+[embedded]
+
+# This group is only read by MariaDB-5.5 servers.
+# If you use the same .cnf file for MariaDB of different versions,
+# use this group for options that older servers don't understand
+[mysqld-5.5]
+
+# These two groups are only read by MariaDB servers, not by MySQL.
+# If you use the same .cnf file for MySQL and MariaDB,
+# you can put MariaDB-only options here
+[mariadb]
+
+[mariadb-5.5]
+
+" > /etc/my.cnf.d/server.cnf
+
 
 systemctl start mariadb
 systemctl enable mariadb 
@@ -58,6 +88,7 @@ chmod -R 755 /mnt/backup/lms
 
 useradd lms
 echo "lms:password" |chpasswd
+mkdir /var/www/html/lms
 chown lms.lms /var/www/html/lms
 
 su lms -c "cd /var/www/html; git clone https://github.com/lmsgit/lms.git"
