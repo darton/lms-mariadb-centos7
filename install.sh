@@ -3,6 +3,12 @@
 FQDN=lms.example.com
 WEBMASTER_EMAIL=hostmaster@example.com
 
+lms_db_host=localhost
+lms_db_user=lms
+lms_db_password=password
+lms_db=lms
+
+
 yum install httpd -y
 systemctl enable httpd.service
 
@@ -72,10 +78,10 @@ touch /etc/lms/lms.ini
 
 echo "[database]" >> /etc/lms/lms.ini
 echo "type = mysql" >> /etc/lms/lms.ini
-echo "host = localhost" >> /etc/lms/lms.ini
-echo "user = lms" >> /etc/lms/lms.ini
-echo "password = password" >> /etc/lms/lms.ini
-echo "database = lms" >> /etc/lms/lms.ini
+echo "host = $lms_db_host" >> /etc/lms/lms.ini
+echo "user = $lms_db_user" >> /etc/lms/lms.ini
+echo "password = $lms_db_password" >> /etc/lms/lms.ini
+echo "database = $lms_db" >> /etc/lms/lms.ini
 
 echo "[directories]" >> /etc/lms/lms.ini
 echo "sys_dir          = /var/www/html/lms" >> /etc/lms/lms.ini
