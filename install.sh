@@ -118,13 +118,15 @@ echo "</VirtualHost>" >> /etc/httpd/conf.d/lms.conf
 
 
 
-mysql -u root -ppassword -e "CREATE DATABASE lms CHARACTER SET utf8 COLLATE utf8_polish_ci;"
-mysql -u root -ppassword -e "GRANT USAGE ON lms.* TO lms@localhost;"
-mysql -u root -ppassword -e "GRANT ALL ON lms.* TO lms@localhost IDENTIFIED BY 'password';"
-mysql -u root -ppassword -e "flush privileges;"
-mysql -u root -ppassword -e "use lms; source /var/www/html/lms/doc/lms.mysql;"
+mysql -u root -e "CREATE DATABASE lms CHARACTER SET utf8 COLLATE utf8_polish_ci;"
+mysql -u root -e "GRANT USAGE ON lms.* TO lms@localhost;"
+mysql -u root -e "GRANT ALL ON lms.* TO lms@localhost IDENTIFIED BY 'password';"
+mysql -u root -e "flush privileges;"
+mysql -u root -e "use lms; source /var/www/html/lms/doc/lms.mysql;"
 
 systemctl start httpd.service
+
+mysql_secure_installation
 
 
 
