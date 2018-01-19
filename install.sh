@@ -125,8 +125,25 @@ mysql -u root -e "flush privileges;"
 mysql -u root -e "use lms; source /var/www/html/lms/doc/lms.mysql;"
 
 systemctl start httpd.service
+setenforce 0
+
+echo "
+# This file controls the state of SELinux on the system.
+# SELINUX= can take one of these three values:
+#     enforcing - SELinux security policy is enforced.
+#     permissive - SELinux prints warnings instead of enforcing.
+#     disabled - No SELinux policy is loaded.
+SELINUX=disabled
+# SELINUXTYPE= can take one of three two values:
+#     targeted - Targeted processes are protected,
+#     minimum - Modification of targeted policy. Only selected processes are protected.
+#     mls - Multi Level Security protection.
+SELINUXTYPE=targeted
+
+" > /etc/selinux/config
 
 mysql_secure_installation
+
 
 
 
