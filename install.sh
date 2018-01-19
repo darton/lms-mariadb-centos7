@@ -125,7 +125,13 @@ mysql -u root -e "flush privileges;"
 mysql -u root -e "use lms; source /var/www/html/lms/doc/lms.mysql;"
 
 systemctl start httpd.service
-setenforce 0
+
+#disable selinux 
+#setenforce 0
+#or better solution modyfi selinux rules
+
+ausearch -c 'httpd' --raw | audit2allow -M my-httpd
+semodule -i my-httpd.pp
 
 echo "
 # This file controls the state of SELinux on the system.
