@@ -92,7 +92,7 @@ mkdir /var/www/html/lms
 chown lms.lms /var/www/html/lms
 
 su lms -c "cd /var/www/html; git clone https://github.com/lmsgit/lms.git"
-su lms -c "cd /var/www/html/lms; curl -sS https://getcomposer.org/installer | php
+su lms -c "cd /var/www/html/lms; curl -sS https://getcomposer.org/installer | php"
 su lms -c "cd /var/www/html/test/lms; composer.phar install"
 
 chown -R 48:48 /var/www/html/lms/templates_c
