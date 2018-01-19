@@ -1,5 +1,5 @@
 yum install httpd -y
-systemctl enable http
+systemctl enable httpd.service
 
 sed  's/^\([^#]\)/#\1/g' -i /etc/httpd/conf.d/welcome.conf
 touch /var/www/html/index.html
