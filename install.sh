@@ -4,6 +4,8 @@ FQDN=lms.example.com
 WEBMASTER_EMAIL=hostmaster@example.com
 LMS_DIR=/var/www/html/lms
 
+backup_dir=/mnt/backup/lms
+
 shell_user=lms
 shell_group=lms
 shell_password=password
@@ -91,8 +93,7 @@ echo "sys_dir          = /var/www/html/lms" >> /etc/lms/lms.ini
 echo "backup_dir       = /mnt/backup/lms" >> /etc/lms/lms.ini
 echo "userpanel_dir  = /var/www/html/lms/userpanel" >> /etc/lms/lms.ini
 
-mkdir /mnt/backup
-mkdir /mnt/backup/lms
+mkdir -p $backup_dir
 chown -R 48:48 /mnt/backup/lms
 chmod -R 755 /mnt/backup/lms
 
@@ -101,20 +102,20 @@ echo "$shell_user:$shell_password" |chpasswd
 mkdir $LMS_DIR
 chown $shell_user.$shell_group $LMS_DIR
 
-su lms -c "cd /var/www/html; git clone https://github.com/lmsgit/lms.git"
-su lms -c "cd /var/www/html/lms; curl -sS https://getcomposer.org/installer | php"
-su lms -c "cd /var/www/html/lms; /var/www/html/lms/composer.phar install"
+su $shell_user -c "cd /var/www/html; git clone https://github.com/lmsgit/lms.git"
+su $shell_user -c "cd $LMS_DIR; curl -sS https://getcomposer.org/installer | php"
+su $shell_user -c "cd $LMS_DIR; $LMS_DIR/composer.phar install"
 
-chown -R 48:48 /var/www/html/lms/templates_c
-chmod -R 755 /var/www/html/lms/templates_c
-chown -R 48:48 /var/www/html/lms/backups
-chmod -R 755 /var/www/html/lms/backups
-chown -R 48:48 /var/www/html/lms/documents
-chmod -R 755 /var/www/html/lms/documents
-chown -R 48:48 /var/www/html/lms/img/xajax_js/deferred
-chmod -R 755 /var/www/html/lms/img/xajax_js/deferred
-chown 48:48 /var/www/html/lms/userpanel/templates_c
-chmod 755 /var/www/html/lms/userpanel/templates_c
+chown -R 48:48 $LMS_DIR/templates_c
+chmod -R 755 $LMS_DIR/templates_c
+chown -R 48:48 $LMS_DIR/backups
+chmod -R 755 $LMS_DIR/backups
+chown -R 48:48 $LMS_DIR/documents
+chmod -R 755 $LMS_DIR/documents
+chown -R 48:48 $LMS_DIR/img/xajax_js/deferred
+chmod -R 755 $LMS_DIR/img/xajax_js/deferred
+chown 48:48 $LMS_DIR/userpanel/templates_c
+chmod 755 $LMS_DIR/userpanel/templates_c
 
 touch /etc/httpd/conf.d/lms.conf
 
