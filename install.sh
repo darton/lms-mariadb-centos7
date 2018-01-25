@@ -131,7 +131,7 @@ mysql -u root -e "CREATE DATABASE $lms_db CHARACTER SET utf8 COLLATE utf8_polish
 mysql -u root -e "GRANT USAGE ON $lms_db.* TO $lms_db_user@localhost;"
 mysql -u root -e "GRANT ALL ON $lms_db.* TO $lms_db_user@$lms_db_host IDENTIFIED BY '$lms_db_password';"
 mysql -u root -e "flush privileges;"
-mysql -u root -e "use lms; source /var/www/html/lms/doc/lms.mysql;"
+mysql -u root -e "use $lms_db; source $LMS_DIR/doc/lms.mysql;"
 
 mysql_secure_installation
 
