@@ -129,9 +129,17 @@ mysql -u root -e "GRANT ALL ON $lms_db.* TO $lms_db_user@$lms_db_host IDENTIFIED
 mysql -u root -e "flush privileges;"
 mysql -u root -e "use lms; source /var/www/html/lms/doc/lms.mysql;"
 
-systemctl start httpd.service
+mysql_secure_installation
+
+systemctl restart httpd.service
 
 ausearch -c 'httpd' --raw | audit2allow -M my-httpd
 semodule -i my-httpd.pp
 
-mysql_secure_installation
+yum install python-certbot-apache
+certbot --apache -d lms.example.com
+systemctl restart httpd.service
+
+
+
+
