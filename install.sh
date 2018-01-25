@@ -10,7 +10,6 @@ lms_db=lms
 
 
 yum install httpd -y
-systemctl enable httpd.service
 
 sed  's/^\([^#]\)/#\1/g' -i /etc/httpd/conf.d/welcome.conf
 touch /var/www/html/index.html
@@ -139,7 +138,7 @@ semodule -i my-httpd.pp
 yum install python-certbot-apache
 certbot --apache -d $FQDN
 systemctl restart httpd.service
-
+systemctl enable httpd.service
 
 
 
