@@ -74,6 +74,7 @@ yum install mod_ssl -y
 yum install perl-Config-IniFiles -y
 yum install perl-Mail-Sender -y
 yum install wget -y
+yum install policycoreutils-pytho
 yum groupinstall "Development Tools" -y
 
 echo "date.timezone =Europe/Warsaw" >> /etc/php.ini
