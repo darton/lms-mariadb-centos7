@@ -8,7 +8,6 @@ lms_db_user=lms
 lms_db_password=password
 lms_db=lms
 
-
 yum install httpd -y
 
 sed  's/^\([^#]\)/#\1/g' -i /etc/httpd/conf.d/welcome.conf
