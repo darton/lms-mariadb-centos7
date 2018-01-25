@@ -2,6 +2,11 @@
 
 FQDN=lms.example.com
 WEBMASTER_EMAIL=hostmaster@example.com
+LMS_DIR=/var/www/html/lms
+
+shell_user=lms
+shell_group=lms
+shell_password=password
 
 lms_db_host=localhost
 lms_db_user=lms
@@ -91,10 +96,10 @@ mkdir /mnt/backup/lms
 chown -R 48:48 /mnt/backup/lms
 chmod -R 755 /mnt/backup/lms
 
-useradd lms
-echo "lms:password" |chpasswd
-mkdir /var/www/html/lms
-chown lms.lms /var/www/html/lms
+useradd $shell_user
+echo "$shell_user:$shell_password" |chpasswd
+mkdir $LMS_DIR
+chown $shell_user.$shell_group $LMS_DIR
 
 su lms -c "cd /var/www/html; git clone https://github.com/lmsgit/lms.git"
 su lms -c "cd /var/www/html/lms; curl -sS https://getcomposer.org/installer | php"
