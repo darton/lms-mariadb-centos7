@@ -89,13 +89,13 @@ echo "password = $lms_db_password" >> /etc/lms/lms.ini
 echo "database = $lms_db" >> /etc/lms/lms.ini
 
 echo "[directories]" >> /etc/lms/lms.ini
-echo "sys_dir          = /var/www/html/lms" >> /etc/lms/lms.ini
-echo "backup_dir       = /mnt/backup/lms" >> /etc/lms/lms.ini
-echo "userpanel_dir  = /var/www/html/lms/userpanel" >> /etc/lms/lms.ini
+echo "sys_dir          = $LMS_DIR" >> /etc/lms/lms.ini
+echo "backup_dir       = $backup_dir" >> /etc/lms/lms.ini
+echo "userpanel_dir  = $LMS_DIR/userpanel" >> /etc/lms/lms.ini
 
 mkdir -p $backup_dir
-chown -R 48:48 /mnt/backup/lms
-chmod -R 755 /mnt/backup/lms
+chown -R 48:48 $backup_dir
+chmod -R 755 $backup_dir
 
 useradd $shell_user
 echo "$shell_user:$shell_password" |chpasswd
