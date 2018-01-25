@@ -137,7 +137,7 @@ ausearch -c 'httpd' --raw | audit2allow -M my-httpd
 semodule -i my-httpd.pp
 
 yum install python-certbot-apache
-certbot --apache -d lms.example.com
+certbot --apache -d $FQDN
 systemctl restart httpd.service
 
 
