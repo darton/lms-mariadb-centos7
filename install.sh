@@ -141,12 +141,12 @@ mysql_secure_installation
 
 systemctl restart httpd.service
 
-ausearch -c 'httpd' --raw | audit2allow -M my-httpd
-semodule -i my-httpd.pp
-
 certbot --apache -d $FQDN
 systemctl restart httpd.service
 systemctl enable httpd.service
 
+wget http://$FQDN
+ausearch -c 'httpd' --raw | audit2allow -M my-httpd
+semodule -i my-httpd.pp
 
 
