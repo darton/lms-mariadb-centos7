@@ -74,7 +74,10 @@ yum install mod_ssl -y
 yum install perl-Config-IniFiles -y
 yum install perl-Mail-Sender -y
 yum install wget -y
-yum install policycoreutils-pytho
+yum install policycoreutils-python
+yum install setroubleshoot
+yum install epel-release
+yum install python-certbot-apache
 yum groupinstall "Development Tools" -y
 
 echo "date.timezone =Europe/Warsaw" >> /etc/php.ini
@@ -141,8 +144,6 @@ systemctl restart httpd.service
 ausearch -c 'httpd' --raw | audit2allow -M my-httpd
 semodule -i my-httpd.pp
 
-yum install epel-release
-yum install python-certbot-apache
 certbot --apache -d $FQDN
 systemctl restart httpd.service
 systemctl enable httpd.service
