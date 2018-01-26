@@ -141,6 +141,7 @@ systemctl restart httpd.service
 ausearch -c 'httpd' --raw | audit2allow -M my-httpd
 semodule -i my-httpd.pp
 
+yum install epel-release
 yum install python-certbot-apache
 certbot --apache -d $FQDN
 systemctl restart httpd.service
