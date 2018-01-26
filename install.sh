@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#####conf###
 FQDN=lms.example.com
 WEBMASTER_EMAIL=hostmaster@example.com
 LMS_DIR=/var/www/html/lms
@@ -15,6 +16,7 @@ lms_db_user=lms
 lms_db_password=password
 lms_db=lms
 
+#####install#####
 yum install httpd -y
 
 sed  's/^\([^#]\)/#\1/g' -i /etc/httpd/conf.d/welcome.conf
