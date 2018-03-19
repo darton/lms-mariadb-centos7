@@ -76,10 +76,10 @@ yum install mod_ssl -y
 yum install perl-Config-IniFiles -y
 yum install perl-Mail-Sender -y
 yum install wget -y
-yum install policycoreutils-python
-yum install setroubleshoot
-yum install epel-release
-yum install python-certbot-apache
+yum install policycoreutils-python -y
+yum install setroubleshoot -y 
+yum install epel-release -y 
+yum install python-certbot-apache -y
 yum groupinstall "Development Tools" -y
 
 echo "date.timezone =Europe/Warsaw" >> /etc/php.ini
