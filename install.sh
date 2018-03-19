@@ -112,6 +112,7 @@ su $shell_user -c "cd /var/www/html; git clone https://github.com/lmsgit/lms.git
 su $shell_user -c "cd $LMS_DIR; curl -sS https://getcomposer.org/installer | php"
 su $shell_user -c "cd $LMS_DIR; $LMS_DIR/composer.phar install"
 
+mkdir $LMS_DIR/img/xajax_js/deferred
 chown -R 48:48 $LMS_DIR/templates_c
 chmod -R 755 $LMS_DIR/templates_c
 chown -R 48:48 $LMS_DIR/backups
