@@ -5,5 +5,5 @@
 
 curl -Ss  https://raw.githubusercontent.com/darton/lms-mariadb-centos7/master/install.sh > install.sh
 
-3. Prepare file install.sh: vi install.sh 
+3. Prepare conf section: vi install.sh 
 4. To install run: bash ./install.sh
