@@ -144,11 +144,17 @@ mysql_secure_installation
 systemctl restart httpd.service
 systemctl enable httpd.service
 
+firewall-cmd --zone=public --add-service=http
+firewall-cmd --zone=public --permanent --add-service=http
+
 wget http://$FQDN
 ausearch -c 'httpd' --raw | audit2allow -M my-httpd
 semodule -i my-httpd.pp
 
-#If you want https uncomment this lines
+#If you want https with Let's Encrypt certificate uncomment lines below:
+
 #certbot --apache -d $FQDN
 #systemctl restart httpd.service
+#firewall-cmd --zone=public --add-service=https
+#firewall-cmd --zone=public --permanent --add-service=https
 
