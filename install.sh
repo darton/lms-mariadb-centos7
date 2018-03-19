@@ -148,6 +148,7 @@ systemctl enable httpd.service
 firewall-cmd --zone=public --add-service=http
 firewall-cmd --zone=public --permanent --add-service=http
 
+#disable selinux or run
 wget http://$FQDN
 ausearch -c 'httpd' --raw | audit2allow -M my-httpd
 semodule -i my-httpd.pp
