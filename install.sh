@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#####conf###
+#####config###
 enable_ssl=no
 
 FQDN=lms.example.com
