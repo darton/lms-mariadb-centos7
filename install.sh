@@ -164,7 +164,7 @@ then
   firewall-cmd --zone=public --permanent --add-service=https
 
 else
-  echo "I you want using SSL encryption later, run:"
+  echo "If you want using SSL encryption later, run:"
   echo 
   echo "certbot --apache -d $FQDN"
   echo "systemctl restart httpd.service"
