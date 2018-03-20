@@ -9,7 +9,7 @@ backup_dir=/mnt/backup/lms
 
 shell_user=lms
 shell_group=lms
-shell_password=password
+shell_password=$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c8)
 
 lms_db_host=localhost
 lms_db_user=lms
