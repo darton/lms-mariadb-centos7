@@ -1,6 +1,8 @@
 #!/bin/bash
 
 #####conf###
+enable_ssl=no
+
 FQDN=lms.example.com
 WEBMASTER_EMAIL=hostmaster@example.com
 LMS_DIR=/var/www/html/lms
@@ -153,10 +155,20 @@ wget http://$FQDN
 ausearch -c 'httpd' --raw | audit2allow -M my-httpd
 semodule -i my-httpd.pp
 
-#If you want https with Let's Encrypt certificate uncomment lines below:
+if [ enable_ssl == yes ]
 
-#certbot --apache -d $FQDN
-#systemctl restart httpd.service
-#firewall-cmd --zone=public --add-service=https
-#firewall-cmd --zone=public --permanent --add-service=https
+then
+  certbot --apache -d $FQDN
+  systemctl restart httpd.service
+  firewall-cmd --zone=public --add-service=https
+  firewall-cmd --zone=public --permanent --add-service=https
 
+else
+  echo "I you want using SSL encryption later, run:"
+  echo 
+  echo "certbot --apache -d $FQDN"
+  echo "systemctl restart httpd.service"
+  echo "firewall-cmd --zone=public --add-service=https"
+  echo "firewall-cmd --zone=public --permanent --add-service=https"
+
+fi
