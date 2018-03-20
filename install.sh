@@ -13,7 +13,7 @@ shell_password=password
 
 lms_db_host=localhost
 lms_db_user=lms
-lms_db_password=password
+lms_db_password=$(/dev/urandom tr -dc _A-Z-a-z-0-9 | head -c16)
 lms_db=lms
 
 #####install#####
