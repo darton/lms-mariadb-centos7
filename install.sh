@@ -150,19 +150,21 @@ systemctl enable httpd.service
 firewall-cmd --zone=public --add-service=http
 firewall-cmd --zone=public --permanent --add-service=http
 
-#disable selinux or run
-wget http://$FQDN
-ausearch -c 'httpd' --raw | audit2allow -M my-httpd
-semodule -i my-httpd.pp
+selinux_status=$(getenforce)
 
-if [ enable_ssl == yes ]
+if [ $selinux_status == Enforcing ]
+then
+  wget http://$FQDN
+  ausearch -c 'httpd' --raw | audit2allow -M my-httpd
+  semodule -i my-httpd.pp
+fi
 
+if [ $enable_ssl == yes ]
 then
   certbot --apache -d $FQDN
   systemctl restart httpd.service
   firewall-cmd --zone=public --add-service=https
   firewall-cmd --zone=public --permanent --add-service=https
-
 else
   echo "If you want using SSL encryption later, run:"
   echo 
@@ -170,5 +172,4 @@ else
   echo "systemctl restart httpd.service"
   echo "firewall-cmd --zone=public --add-service=https"
   echo "firewall-cmd --zone=public --permanent --add-service=https"
-
 fi
