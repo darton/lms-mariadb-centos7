@@ -15,6 +15,7 @@
 enable_ssl=no
 
 FQDN=lms.example.com
+userpanelFQDN=boa.example.com
 WEBMASTER_EMAIL=hostmaster@example.com
 LMS_DIR=/var/www/html/lms
 
@@ -146,6 +147,18 @@ echo "    ServerName $FQDN" >> /etc/httpd/conf.d/lms.conf
 echo "    ErrorLog logs/$FQDN-error_log" >> /etc/httpd/conf.d/lms.conf
 echo "    CustomLog logs/$FQDN-access_log common" >> /etc/httpd/conf.d/lms.conf
 echo "</VirtualHost>" >> /etc/httpd/conf.d/lms.conf
+
+
+touch /etc/httpd/conf.d/userpanel.conf
+
+echo "<VirtualHost *:80>" >> /etc/httpd/conf.d/userpanel.conf
+echo "    ServerAdmin $WEBMASTER_EMAIL" >> /etc/httpd/conf.d/userpanel.conf
+echo "    DocumentRoot /var/www/html/lms/userpanel" >> /etc/httpd/conf.d/userpanel.conf
+echo "    ServerName $userpanelFQDN" >> /etc/httpd/conf.d/userpanel.conf
+echo "    ErrorLog logs/$userpanelFQDN-error_log" >> /etc/httpd/conf.d/userpanel.conf
+echo "    CustomLog logs/$userpanelFQDN-access_log common" >> /etc/httpd/conf.d/userpanel.conf
+echo "</VirtualHost>" >> /etc/httpd/conf.d/userpanel.conf
+
 
 mysql -u root -e "CREATE DATABASE $lms_db CHARACTER SET utf8 COLLATE utf8_polish_ci;"
 mysql -u root -e "GRANT USAGE ON $lms_db.* TO $lms_db_user@localhost;"
