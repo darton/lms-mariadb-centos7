@@ -138,6 +138,12 @@ chmod -R 755 $LMS_DIR/img/xajax_js/deferred
 chown 48:48 $LMS_DIR/userpanel/templates_c
 chmod 755 $LMS_DIR/userpanel/templates_c
 
+mkdir /var/www/html/lms/js/xajax_js/deferred
+chown -R 48:48 /var/www/html/lms/js/xajax_js/deferred
+chmod -R 755 /var/www/html/lms/js/xajax_js/deferred
+
+
+
 touch /etc/httpd/conf.d/lms.conf
 
 echo "<VirtualHost *:80>" >> /etc/httpd/conf.d/lms.conf
@@ -197,11 +203,6 @@ else
   echo "firewall-cmd --zone=public --add-service=https"
   echo "firewall-cmd --zone=public --permanent --add-service=https"
 fi
-
-
-mkdir /var/www/html/lms/js/xajax_js/deferred
-chown -R 48:48 /var/www/html/lms/js/xajax_js/deferred
-chmod -R 755 /var/www/html/lms/js/xajax_js/deferred
 
 echo
 echo "LMS DIR $LMS_DIR"
