@@ -185,6 +185,11 @@ else
   echo "firewall-cmd --zone=public --permanent --add-service=https"
 fi
 
+
+mkdir /var/www/html/lms/js/xajax_js/deferred
+chown -R 48:48 /var/www/html/lms/js/xajax_js/deferred
+chmod -R 755 /var/www/html/lms/js/xajax_js/deferred
+
 echo
 echo "LMS DIR $LMS_DIR"
 echo "LMS shell user account: $shell_user"
