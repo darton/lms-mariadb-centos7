@@ -75,18 +75,6 @@ innodb_file_per_table=1
 systemctl start mariadb
 systemctl enable mariadb 
 
-yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm -y
-yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm -y
-yum install yum-utils -y
-yum-config-manager --enable remi-php73   [Install PHP 7.3]
-yum install php -y
-yum install php-mysql -y
-yum install php-gd -y
-yum install php-mbstring -y
-yum install php-posix -y
-yum install php-bcmath -y
-yum install php-xml -y
-yum install php-imap -y
 yum install bison-* -y
 yum install flex -y
 yum install flex-devel -y
@@ -100,6 +88,19 @@ yum install setroubleshoot -y
 yum install epel-release -y 
 yum install python-certbot-apache -y
 yum groupinstall "Development Tools" -y
+
+yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm -y
+yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm -y
+yum install yum-utils -y
+yum-config-manager --enable remi-php73   [Install PHP 7.3]
+yum install php -y
+yum install php-mysql -y
+yum install php-gd -y
+yum install php-mbstring -y
+yum install php-posix -y
+yum install php-bcmath -y
+yum install php-xml -y
+yum install php-imap -y
 
 echo "date.timezone =Europe/Warsaw" >> /etc/php.ini
 
