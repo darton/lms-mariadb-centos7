@@ -127,7 +127,6 @@ su $shell_user -c "cd /var/www/html; git clone https://github.com/lmsgit/lms.git
 su $shell_user -c "cd $LMS_DIR; curl -sS https://getcomposer.org/installer | php"
 su $shell_user -c "cd $LMS_DIR; $LMS_DIR/composer.phar install"
 
-mkdir $LMS_DIR/img/xajax_js/deferred
 chown -R 48:48 $LMS_DIR/templates_c
 chmod -R 755 $LMS_DIR/templates_c
 chown -R 48:48 $LMS_DIR/backups
@@ -139,9 +138,13 @@ chmod -R 755 $LMS_DIR/img/xajax_js/deferred
 chown 48:48 $LMS_DIR/userpanel/templates_c
 chmod 755 $LMS_DIR/userpanel/templates_c
 
-mkdir /var/www/html/lms/js/xajax_js/deferred
-chown -R 48:48 /var/www/html/lms/js/xajax_js/deferred
-chmod -R 755 /var/www/html/lms/js/xajax_js/deferred
+
+mkdir -p $LMS_DIR/img/xajax_js/deferred
+chown -R 48:48 $LMS_DIR/img/xajax_js/deferred
+chmod -R 755 $LMS_DIR/img/xajax_js/deferred
+mkdir -p $LMS_DIR/js/xajax_js/deferred
+chown -R 48:48 $LMS_DIR/js/xajax_js/deferred
+chmod -R 755 $LMS_DIR/js/xajax_js/deferred
 
 
 
