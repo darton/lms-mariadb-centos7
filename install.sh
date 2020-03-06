@@ -75,6 +75,10 @@ innodb_file_per_table=1
 systemctl start mariadb
 systemctl enable mariadb 
 
+yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm -y
+yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm -y
+yum install yum-utils -y
+yum-config-manager --enable remi-php73   [Install PHP 7.3]
 yum install php -y
 yum install php-mysql -y
 yum install php-gd -y
