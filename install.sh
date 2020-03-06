@@ -193,6 +193,7 @@ selinux_status=$(getenforce)
 
 if [ $selinux_status == Enforcing ]
 then
+  wget http://127.0.0.1
   wget http://$FQDN
   ausearch -c 'httpd' --raw | audit2allow -M my-httpd
   semodule -i my-httpd.pp
