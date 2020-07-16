@@ -101,6 +101,8 @@ yum install php-posix -y
 yum install php-bcmath -y
 yum install php-xml -y
 yum install php-imap -y
+yum install php-soap -y
+yum install php-pecl-zip
 
 echo "date.timezone =Europe/Warsaw" >> /etc/php.ini
 
