@@ -141,8 +141,8 @@ chown -R 48:48 $LMS_DIR/backups
 chmod -R 755 $LMS_DIR/backups
 chown -R 48:48 $LMS_DIR/documents
 chmod -R 755 $LMS_DIR/documents
-chown -R 48:48 $LMS_DIR/img/xajax_js/deferred
-chmod -R 755 $LMS_DIR/img/xajax_js/deferred
+#chown -R 48:48 $LMS_DIR/img/xajax_js/deferred
+#chmod -R 755 $LMS_DIR/img/xajax_js/deferred
 chown 48:48 $LMS_DIR/userpanel/templates_c
 chmod 755 $LMS_DIR/userpanel/templates_c
 
