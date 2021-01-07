@@ -179,7 +179,7 @@ echo "</VirtualHost>" >> /etc/httpd/conf.d/userpanel.conf
 
 
 mysql -u root -e "CREATE DATABASE $lms_db CHARACTER SET utf8 COLLATE utf8_polish_ci;"
-mysql -u root -e "GRANT USAGE ON $lms_db.* TO $lms_db_user@localhost;"
+mysql -u root -e "GRANT USAGE ON $lms_db.* TO $lms_db_user@$lms_db_host;"
 mysql -u root -e "GRANT ALL ON $lms_db.* TO $lms_db_user@$lms_db_host IDENTIFIED BY '$lms_db_password';"
 mysql -u root -e "flush privileges;"
 mysql -u root -e "use $lms_db; source $LMS_DIR/doc/lms.mysql;"
