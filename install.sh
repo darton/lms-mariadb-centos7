@@ -40,7 +40,8 @@ yum install mariadb -y
 yum install mariadb-server -y
 yum install mariadb-devel -y
 
-echo "#
+cat <<EOF > /etc/my.cnf.d/server.cnf
+#
 # These groups are read by MariaDB server.
 # Use it for options that only the server (but not clients) should see
 #
@@ -69,8 +70,7 @@ innodb_file_per_table=1
 [mariadb]
 
 [mariadb-5.5]
-
-" > /etc/my.cnf.d/server.cnf
+EOF
 
 systemctl start mariadb
 systemctl enable mariadb 
@@ -104,23 +104,23 @@ yum install php-imap -y
 yum install php-soap -y
 yum install php-pecl-zip libzip5 -y
 
-
 echo "date.timezone =Europe/Warsaw" >> /etc/php.ini
 
 mkdir /etc/lms
-touch /etc/lms/lms.ini
 
-echo "[database]" >> /etc/lms/lms.ini
-echo "type = mysql" >> /etc/lms/lms.ini
-echo "host = $lms_db_host" >> /etc/lms/lms.ini
-echo "user = $lms_db_user" >> /etc/lms/lms.ini
-echo "password = $lms_db_password" >> /etc/lms/lms.ini
-echo "database = $lms_db" >> /etc/lms/lms.ini
+cat <<EOF > /etc/lms/lms.ini
+[database]
+type = mysql
+host = $lms_db_host
+user = $lms_db_user
+password = $lms_db_password
+database = $lms_db
 
-echo "[directories]" >> /etc/lms/lms.ini
-echo "sys_dir          = $LMS_DIR" >> /etc/lms/lms.ini
-echo "backup_dir       = $backup_dir" >> /etc/lms/lms.ini
-echo "userpanel_dir  = $LMS_DIR/userpanel" >> /etc/lms/lms.ini
+[directories]
+sys_dir = $LMS_DIR
+backup_dir = $backup_dir
+userpanel_dir = $LMS_DIR/userpanel
+EOF
 
 mkdir -p $backup_dir
 chown -R 48:48 $backup_dir
@@ -146,7 +146,6 @@ chmod -R 755 $LMS_DIR/documents
 chown 48:48 $LMS_DIR/userpanel/templates_c
 chmod 755 $LMS_DIR/userpanel/templates_c
 
-
 mkdir -p $LMS_DIR/img/xajax_js/deferred
 chown -R 48:48 $LMS_DIR/img/xajax_js/deferred
 chmod -R 755 $LMS_DIR/img/xajax_js/deferred
@@ -155,28 +154,25 @@ chown -R 48:48 $LMS_DIR/js/xajax_js/deferred
 chmod -R 755 $LMS_DIR/js/xajax_js/deferred
 
 
+cat <<EOF > /etc/httpd/conf.d/lms.conf
+<VirtualHost *:80>
+ServerAdmin $WEBMASTER_EMAIL
+DocumentRoot /var/www/html/lms
+ServerName $FQDN
+ErrorLog logs/$FQDN-error_log
+CustomLog logs/$FQDN-access_log common
+</VirtualHost>
+EOF
 
-touch /etc/httpd/conf.d/lms.conf
-
-echo "<VirtualHost *:80>" >> /etc/httpd/conf.d/lms.conf
-echo "    ServerAdmin $WEBMASTER_EMAIL" >> /etc/httpd/conf.d/lms.conf
-echo "    DocumentRoot /var/www/html/lms" >> /etc/httpd/conf.d/lms.conf
-echo "    ServerName $FQDN" >> /etc/httpd/conf.d/lms.conf
-echo "    ErrorLog logs/$FQDN-error_log" >> /etc/httpd/conf.d/lms.conf
-echo "    CustomLog logs/$FQDN-access_log common" >> /etc/httpd/conf.d/lms.conf
-echo "</VirtualHost>" >> /etc/httpd/conf.d/lms.conf
-
-
-touch /etc/httpd/conf.d/userpanel.conf
-
-echo "<VirtualHost *:80>" >> /etc/httpd/conf.d/userpanel.conf
-echo "    ServerAdmin $WEBMASTER_EMAIL" >> /etc/httpd/conf.d/userpanel.conf
-echo "    DocumentRoot /var/www/html/lms/userpanel" >> /etc/httpd/conf.d/userpanel.conf
-echo "    ServerName $userpanelFQDN" >> /etc/httpd/conf.d/userpanel.conf
-echo "    ErrorLog logs/$userpanelFQDN-error_log" >> /etc/httpd/conf.d/userpanel.conf
-echo "    CustomLog logs/$userpanelFQDN-access_log common" >> /etc/httpd/conf.d/userpanel.conf
-echo "</VirtualHost>" >> /etc/httpd/conf.d/userpanel.conf
-
+cat <<EOF > /etc/httpd/conf.d/userpanel.conf
+<VirtualHost *:80>
+ServerAdmin $WEBMASTER_EMAIL
+DocumentRoot /var/www/html/lms/userpanel
+ServerName $userpanelFQDN
+ErrorLog logs/$userpanelFQDN-error_log
+CustomLog logs/$userpanelFQDN-access_log common
+</VirtualHost>
+EOF
 
 mysql -u root -e "CREATE DATABASE $lms_db CHARACTER SET utf8 COLLATE utf8_polish_ci;"
 mysql -u root -e "GRANT USAGE ON $lms_db.* TO $lms_db_user@$lms_db_host;"
@@ -221,3 +217,4 @@ echo
 echo "LMS DIR $LMS_DIR"
 echo "LMS shell user account: $shell_user"
 echo "LMS shell user password: $shell_password" 
+echo ""
